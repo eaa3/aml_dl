@@ -7,10 +7,10 @@ from aml_dl.utilities.tf_optimisers import optimiser_op
 def init_var(shape, init_type, name, stddev = None):
 
 
-    if init_type == 'normal':
-        return tf.Variable(tf.random_normal(shape, stddev=stddev, dtype=tf.float32), name=name)
-    elif init_type == 'uniform':
-        return tf.Variable(tf.random_uniform(shape, dtype=tf.float32), name=name)
+    # if init_type == 'normal':
+    #     return tf.Variable(tf.random_normal(shape, stddev=stddev, dtype=tf.float32), name=name)
+    # elif init_type == 'uniform':
+    return tf.Variable(tf.random_uniform(shape, minval=-1.0, maxval=1.0, dtype=tf.float32), name=name)
 
 
 
