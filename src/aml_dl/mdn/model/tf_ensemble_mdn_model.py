@@ -165,7 +165,8 @@ class EnsembleMDN(object):
 
             idx = np.argmax(pi, axis=1)
             idx_max = np.max(pi, axis=1)
-        
+
+
             # print pi[:5,:]
             # print idx[:5]
             # print idx_max[:5]

@@ -57,15 +57,15 @@ class MDN(object):
         print("Model saved in file: %s" % save_path)
 
 
-    def train(self, x_data, y_data, epochs = 10000):
+    def train(self, x_data, y_data, iterations = 10000):
         with tf.device(self._device):
             # Keeping track of loss progress as we train
-            loss = np.zeros(epochs) 
+            loss = np.zeros(iterations) 
 
             train_op = self._net_ops['train']
             loss_op = self._net_ops['loss']
 
-            for i in range(epochs):
+            for i in range(iterations):
 
                 if self._params['write_summary']:
                     run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
@@ -156,6 +156,18 @@ class MDN(object):
             out = self._sess.run(op, feed_dict={self._net_ops['x']: x_input})
 
             return out
+
+    def forward(self, xs):
+
+        out = self._mdn.forward(self._sess, xs)
+
+        return out
+
+    def predict(self, xs):
+
+        out = self._mdn.predict(self._sess, xs)
+
+        return out
 
     def _sample_pi_idx(self, x, pdf):
         N = pdf.size

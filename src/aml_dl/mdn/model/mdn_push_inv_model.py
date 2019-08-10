@@ -170,7 +170,7 @@ class MDNPushInverseModel(object):
 
     def _max_pi_idx(self, pdf):
         
-        i = np.argmax(pdf, axis=1)
+        i = np.argmax(pdf, axis=0)
 
         return i
 
@@ -195,8 +195,10 @@ class MDNPushInverseModel(object):
         for j in range(M):
             for i in range(0, N):
               idx = self._max_pi_idx(out_pi[i])
-              mu = out_mu[i, idx]
+              mu = out_mu[i, :, idx]
+              # print mu
               std = out_sigma[i, idx]
+              # print std
               result[i, :, j] = self._sample_gaussian(rn[i, :, j], mu, std)
 
         return result

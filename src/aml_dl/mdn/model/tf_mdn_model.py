@@ -207,6 +207,31 @@ class MixtureDensityNetwork(object):
 
         return out
 
+    def predict(self, sess, xs):
+
+        mus, sigmas, pis = self.forward(sess, xs)
+
+        out_mu = np.zeros((pis.shape[0],mus.shape[1]))
+        out_sigmas = np.zeros((pis.shape[0],sigmas.shape[1]))
+        for i in range(pis.shape[0]):
+            pi = pis[i]
+            idx = np.argmax(pi)
+            # print mus[k]
+            # print mus[k].shape
+            mu = mus[i][0][idx]
+            std = sigmas[i][idx]
+            out_mu[i,:] = mu 
+            out_sigmas[i] = std
+
+            # print std
+
+
+
+        return out_mu, out_sigmas
+
+
+
+
 
     def run_op(self, sess, op,  xs, ys = None):
         out = []
